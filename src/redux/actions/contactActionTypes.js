@@ -1,0 +1,2 @@
+export const LIST_CONTACTS = 'LIST_CONTACTS';
+export const ADD_CONTACT = 'ADD_CONTACT';

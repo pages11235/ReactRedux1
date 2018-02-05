@@ -3,6 +3,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import configureStore from './redux/store/configureStore';
+import {listContactsActionBuilder} from './redux/actions/contactActionBuilders';
 
 import './App.css';
 
@@ -13,7 +14,7 @@ import Contact from './react/contact/Contact';
 
 function App(props) {
   const store = configureStore();
-  // initialize store
+  store.dispatch(listContactsActionBuilder());
 
   return (
     <Provider store={store}>
