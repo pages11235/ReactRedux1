@@ -10,14 +10,23 @@ function ContactList(props) {
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Length</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {props
+                        .contactList
+                        .map(contact => {
+                            return (
+                                <tr>
+                                    <td><NavLink to="/contact/id/{contact.contactId}" component="Contact" className="buttonSmall">&nbsp;</NavLink></td>
+                                    <td>{contact.firstName}</td>
+                                    <td>{contact.lastName}</td>
+                                </tr>
+                            );
+                        })
+}
                 </tbody>
             </table>
 

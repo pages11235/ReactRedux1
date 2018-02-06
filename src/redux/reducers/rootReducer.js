@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 
-import contacts from './contactsReducer';
+import contactsState from './contactsReducer';
 
 const rootReducer = combineReducers({
   // list reducers here
-  contacts: contacts
+  contactsState
 });
 
 export default rootReducer;

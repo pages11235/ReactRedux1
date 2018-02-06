@@ -1,9 +1,22 @@
 import * as contactTypes from '../actions/contactActionTypes';
 import {ContactsState} from './ContactsState';
+import {Contact} from '../model/Contact';
 
 export default function contactsReducer(previousContactsState, action) {
+    // Happens during intitialization
     if (previousContactsState === undefined) {
-        return new ContactsState(null);
+        const contactsState = new ContactsState(null);
+
+        const contact = new Contact();
+        contact.contactId = 1;
+        contact.firstName = "Joe";
+        contact.lastName = "Bloggs";
+
+        contactsState
+            .contactList
+            .push(contact);
+
+        return contactsState;
     }
 
     switch (action.type) {
