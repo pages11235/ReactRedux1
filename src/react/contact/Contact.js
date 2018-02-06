@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 
-import ContactList from './ContactList';
+import ContactListContainer from './ContactListContainer';
 import ContactMaintenance from './ContactMaintenance';
 
 function Contact(props) {
@@ -10,7 +10,7 @@ function Contact(props) {
             <div>
                 <h2>Your Contacts</h2>
                 <div>
-                    <Route path="/contact/list" component={ContactList}/>
+                    <Route path="/contact/list" component={ContactListContainer}/>
                     <Route path="/contact/id/:id" component={ContactMaintenance}/>
                 </div>
             </div>

@@ -31,7 +31,7 @@
     }
 }
 
-a.button, span.button {
+.button, .buttonSmall {
     display: inline-block;
     width: 7em;
     height: 1.4em;
@@ -46,4 +46,9 @@ a.button, span.button {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+}
+
+.buttonSmall {
+    width: 2em;
+    height: 1em;
 }
