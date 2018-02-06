@@ -5,7 +5,7 @@ export class Contact {
         this.lastName = "";
     }
 
-    validate = () => {
+    validate() {
         const errorMessages = [];
 
         if (this.contactId < 0) {
@@ -28,9 +28,9 @@ export class Contact {
         return errorString;
     }
 
-    populateFromDto = dto => {
-        this
-            .keys()
+    populateFromDto(dto) {
+        Object
+            .keys(this)
             .map(key => {
                 if (dto[key]) {
                     this[key] = dto[key];

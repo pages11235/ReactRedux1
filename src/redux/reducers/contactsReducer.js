@@ -29,7 +29,12 @@ export default function contactsReducer(previousContactsState, action) {
         case contactTypes.ADD_CONTACT:
             {
                 const contactsState = new ContactsState(previousContactsState);
-                contactsState.push(action.contact);
+
+                const maxContactId = Math.max(...contactsState.contactList.map(contact => contact.contactId));
+                const contact = action.contact;
+                contact.contactId = maxContactId + 1;
+
+                contactsState.contactList.push(contact);
 
                 return contactsState;
             }
