@@ -20,7 +20,7 @@ function ContactList(props) {
                         .map(contact => {
                             return (
                                 <tr>
-                                    <td><NavLink to="/contact/id/{contact.contactId}" component="Contact" className="buttonSmall">&nbsp;</NavLink></td>
+                                    <td><NavLink key={contact.contactId} to={'/contact/id/' + contact.contactId} component="Contact" className="buttonSmall">&nbsp;</NavLink></td>
                                     <td>{contact.firstName}</td>
                                     <td>{contact.lastName}</td>
                                 </tr>
