@@ -27,7 +27,7 @@ export default function contactsReducer(previousContactsState, action) {
                 contactsState.contactList.sort((a, b) => {
                     if (a === b) return 0;
                     if (a.lastName.localeCompare(b.lastName) !== 0) return a.lastName.localeCompare(b.lastName);
-                    return a.firstName.localeCompare(b.lastName);
+                    return a.firstName.localeCompare(b.firstName);
                 });
 
                 return contactsState;
