@@ -24,6 +24,12 @@ export default function contactsReducer(previousContactsState, action) {
             {
                 const contactsState = new ContactsState(previousContactsState);
 
+                contactsState.contactList.sort((a, b) => {
+                    if (a === b) return 0;
+                    if (a.lastName.localeCompare(b.lastName) !== 0) return a.lastName.localeCompare(b.lastName);
+                    return a.firstName.localeCompare(b.lastName);
+                });
+
                 return contactsState;
             }
         case contactTypes.ADD_CONTACT:
@@ -35,6 +41,15 @@ export default function contactsReducer(previousContactsState, action) {
                 contact.contactId = maxContactId + 1;
 
                 contactsState.contactList.push(contact);
+
+                return contactsState;
+            }
+        case contactTypes.UPDATE_CONTACT:
+            {
+                const contactsState = new ContactsState(previousContactsState);
+
+                contactsState.contactList = contactsState.contactList.filter(contact => contact.contactId !== action.contact.contactId);
+                contactsState.contactList.push(action.contact);
 
                 return contactsState;
             }

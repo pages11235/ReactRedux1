@@ -45,7 +45,10 @@ class ContactMaintenanceContainer extends React.Component {
                 .actions
                 .addContactActionCreator(this.state.contact);
         } else {
-            // do update instead
+            this
+                .props
+                .actions
+                .updateContactActionCreator(this.state.contact);
         }
 
         this
