@@ -20,10 +20,7 @@ export class Contact {
             errorMessages.push("The last name is blank.");
         }
 
-        let errorString = "";
-        errorMessages.map(errorMessage => {
-            errorString += "\n" + errorMessage
-        });
+        let errorString = errorMessages.join("\n");
 
         return errorString;
     }
@@ -37,6 +34,9 @@ export class Contact {
                 } else {
                     this[key] = null;
                 }
+
+                // dummy return to fulfill contract of map()
+                return null;
             });
     }
 }

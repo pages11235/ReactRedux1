@@ -4,7 +4,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import ContactListContainer from './ContactListContainer';
 import ContactMaintenanceContainer from './ContactMaintenanceContainer';
 
-function Contact(props) {
+function ContactPage(props) {
     return (
         <BrowserRouter>
             <div>
@@ -18,4 +18,4 @@ function Contact(props) {
     );
 };
 
-export default Contact;
+export default ContactPage;

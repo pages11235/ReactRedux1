@@ -7,10 +7,8 @@ import * as contactActionCreators from '../../redux/actions/contactActionCreator
 import ContactList from './ContactList';
 
 class ContactListContainer extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
-
+    // use automatic constructor
+    
     render() {
         return (<ContactList contactList={this.props.contactList}/>);
     }
