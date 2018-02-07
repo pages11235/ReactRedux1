@@ -3,14 +3,13 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import configureStore from './redux/store/configureStore';
-import {listContactsActionCreator} from './redux/actions/contactActionCreators';
 
 import './App.css';
 
 import Header from './react/common/Header';
-import Home from './react/home/Home';
-import About from './react/about/About';
-import Contact from './react/contact/Contact';
+import HomePage from './react/home/HomePage';
+import AboutPage from './react/about/AboutPage';
+import ContactPage from './react/contact/ContactPage';
 
 function App(props) {
   const store = configureStore();
@@ -22,9 +21,9 @@ function App(props) {
         <div>
           <Header/>
           <main>
-            <Route exact path="/" component={Home}/>
-            <Route path="/about" component={About}/>
-            <Route path="/contact" component={Contact}/>
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/about" component={AboutPage}/>
+            <Route path="/contact" component={ContactPage}/>
           </main>
         </div>
       </BrowserRouter>
