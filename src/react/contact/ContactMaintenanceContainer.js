@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
-import * as contactActionCreators from '../../redux/actions/contactActionCreators';
 import ContactMaintenance from './ContactMaintenance';
-import {Contact} from '../../redux/model/Contact';
+import {Contact} from '../../model/Contact';
+import {addContact, updateContact} from '../../model/modelApi';
 
 class ContactMaintenanceContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            contact: this.props.contact
+            contact: this.props.contact,
+            dispatch: this.props.dispatch
         };
 
         this.onSaveClickHandlerBound = this
@@ -39,35 +39,30 @@ class ContactMaintenanceContainer extends React.Component {
     }
 
     onSaveClickHandler() {
+        const parent = this;
         if (this.state.contact.contactId === 0) {
-            this
-                .props
-                .actions
-                .addContactActionCreator(this.state.contact);
+            addContact(this.state.contact, this.state.dispatch, function () {
+                parent
+                    .props
+                    .history
+                    .push("/contact/list");
+            }, function (error) {
+                alert(error);
+            });
         } else {
-            this
-                .props
-                .actions
-                .updateContactActionCreator(this.state.contact);
+            updateContact(this.state.contact, this.state.dispatch, function () {
+                parent
+                    .props
+                    .history
+                    .push("/contact/list");
+            }, function (error) {
+                alert(error);
+            });
         }
 
-        this
-            .props
-            .actions
-            .listContactsActionCreator();
-
-        this
-            .props
-            .history
-            .push("/contact/list");
     }
 
     onCancelClickHandler() {
-        this
-            .props
-            .actions
-            .listContactsActionCreator();
-
         this
             .props
             .history
@@ -106,17 +101,14 @@ function mapStateToProps(reduxState, ownProps) {
 
     let contact = new Contact();
     if (contactId !== 0) {
-        contact.populateFromDto(reduxState.contactsState.contactList.filter(listContact => listContact.contactId === contactId)[0]);
+        // TODO: retrieve contact from model
     }
 
     return {contact};
 }
 
 function wrapActionCreatorsToProps(dispatch) {
-    return {
-        // refactor
-        actions: bindActionCreators(contactActionCreators, dispatch)
-    };
+    return {actions: {}, dispatch};
 }
 
 export default decoratedContactMaintenanceContainer;

@@ -1,13 +1,13 @@
-import {LIST_CONTACTS, ADD_CONTACT, UPDATE_CONTACT} from './contactActionTypes';
+import {UPDATE_CONTACT_LIST} from './contactActionTypes';
 
-export function listContactsActionCreator() {
-    return {type: LIST_CONTACTS, contact: null};
+export function updateContactListActionCreator(contactListUpdate) {
+    return {type: UPDATE_CONTACT_LIST, contactListUpdate};
 };
 
-export function addContactActionCreator(contact) {
-    return {type: ADD_CONTACT, contact: contact};
-}
-
-export function updateContactActionCreator(contact) {
-    return {type: UPDATE_CONTACT, contact: contact};
+export class ContactListUpdate {
+    constructor(refreshing, dirty, contactList) {
+        this.refreshing = refreshing;
+        this.dirty = dirty;
+        this.contactList = contactList;
+    }
 }

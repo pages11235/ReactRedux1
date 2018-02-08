@@ -1,59 +1,32 @@
-import * as contactTypes from '../actions/contactActionTypes';
-import {ContactsState} from './ContactsState';
-import {Contact} from '../model/Contact';
+import * as contactActionTypes from '../actions/contactActionTypes';
 
 export default function contactsReducer(previousContactsState, action) {
     // Happens during intitialization
     if (previousContactsState === undefined) {
-        const contactsState = new ContactsState(null);
-
-        const contact = new Contact();
-        contact.contactId = 1;
-        contact.firstName = "Joe";
-        contact.lastName = "Bloggs";
-
-        contactsState
-            .contactList
-            .push(contact);
+        console.log("Initial dispatch...");
+        const contactsState = new ContactsState(false, true, []);
 
         return contactsState;
     }
 
     switch (action.type) {
-        case contactTypes.LIST_CONTACTS:
+        case contactActionTypes.UPDATE_CONTACT_LIST:
             {
-                const contactsState = new ContactsState(previousContactsState);
-
-                contactsState.contactList.sort((a, b) => {
-                    if (a === b) return 0;
-                    if (a.lastName.localeCompare(b.lastName) !== 0) return a.lastName.localeCompare(b.lastName);
-                    return a.firstName.localeCompare(b.firstName);
-                });
-
-                return contactsState;
-            }
-        case contactTypes.ADD_CONTACT:
-            {
-                const contactsState = new ContactsState(previousContactsState);
-
-                const maxContactId = Math.max(...contactsState.contactList.map(contact => contact.contactId));
-                const contact = action.contact;
-                contact.contactId = maxContactId + 1;
-
-                contactsState.contactList.push(contact);
-
-                return contactsState;
-            }
-        case contactTypes.UPDATE_CONTACT:
-            {
-                const contactsState = new ContactsState(previousContactsState);
-
-                contactsState.contactList = contactsState.contactList.filter(contact => contact.contactId !== action.contact.contactId);
-                contactsState.contactList.push(action.contact);
+                const update = action.contactListUpdate;
+                console.log("Dispatch: " + update.refreshing + ", " + update.dirty + ", " + update.contactList + ".");
+                const contactsState = new ContactsState(update.refreshing, update.dirty, update.contactList);
 
                 return contactsState;
             }
         default:
             return previousContactsState;
+    }
+}
+
+export class ContactsState {
+    constructor(refreshing, dirty, contactList) {
+        this.refreshing = refreshing;
+        this.dirty = dirty;
+        this.contactList = contactList;
     }
 }

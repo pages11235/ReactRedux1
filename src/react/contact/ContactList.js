@@ -1,10 +1,13 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import Waiting from '../common/Waiting';
+
 function ContactList(props) {
     return (
         <div>
             <NavLink to="/contact/id/0" component="Contact" className="button">Add Contact</NavLink>
+            <Waiting listRefreshing={props.listRefreshing}/>
             <br/><br/>
             <table className="table">
                 <thead>
@@ -34,7 +37,6 @@ function ContactList(props) {
 }
                 </tbody>
             </table>
-
         </div>
     );
 };
