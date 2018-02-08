@@ -1,6 +1,7 @@
 import {updateContactListActionCreator, ContactListUpdate} from '../redux/actions/contactActionCreators';
 import {Contact} from './Contact';
 
+// this should be a database fronted by a RESTful service
 let modelContactList = [];
 
 export function updateContactList(dispatch, successCB, failCB) {
@@ -24,6 +25,20 @@ export function updateContactList(dispatch, successCB, failCB) {
     });
 }
 
+export function retrieveContact(contactId, successCB, failCB) {
+    const promise = new Promise((resolveCB, rejectCB) => {
+        setTimeout(() => {
+            const foundContact = modelContactList.filter(listContact => listContact.contactId === contactId)[0];
+            resolveCB(foundContact);
+        }, 2000);
+    });
+    promise.then(foundContact => {
+        successCB(foundContact);
+    }, error => {
+        failCB(error);
+    });
+}
+
 export function addContact(addedContact, dispatch, successCB, failCB) {
     const promise = new Promise((resolveCB, rejectCB) => {
         setTimeout(() => {
@@ -31,13 +46,13 @@ export function addContact(addedContact, dispatch, successCB, failCB) {
             addedContact.contactId = maxContactId + 1;
             modelContactList.push(addedContact);
             modelContactList.sort(contactCompare);
-            resolveCB("Contact added.");
             dispatch(updateContactListActionCreator(new ContactListUpdate(false, true, [])));
+            resolveCB("Contact added.");
         }, 2000);
     });
     promise.then((message) => {
         successCB(message);
-    }, (error) => {
+    }, error => {
         failCB(error);
     });
 }
@@ -48,13 +63,13 @@ export function updateContact(updatedContact, dispatch, successCB, failCB) {
             modelContactList = modelContactList.filter(listContact => listContact.contactId !== updatedContact.contactId);
             modelContactList.push(updatedContact);
             modelContactList.sort(contactCompare);
-            resolveCB("Contact updated.");
             dispatch(updateContactListActionCreator(new ContactListUpdate(false, true, [])));
+            resolveCB("Contact updated.");
         }, 2000);
     });
     promise.then((message) => {
         successCB(message);
-    }, (error) => {
+    }, error => {
         failCB(error);
     });
 }
