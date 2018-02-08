@@ -25,7 +25,7 @@ class ContactListContainer extends React.Component {
 
         return (<ContactList
             contactList={this.props.contactList}
-            listRefreshing={this.props.listRefreshing}/>);
+            shouldDisplay={this.props.listRefreshing}/>);
     }
 }
 

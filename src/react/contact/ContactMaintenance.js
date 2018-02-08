@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Waiting from '../common/Waiting';
+
 function ContactMaintenace(props) {
     const contact = props.contact;
+
+    if(!contact) {
+        return (
+            <Waiting shouldDisplay={true}/>
+        );
+    }
 
     return (
         <div>

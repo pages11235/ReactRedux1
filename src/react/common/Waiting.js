@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Waiting(props) {
-    if (!props.listRefreshing) {
+    if (!props.shouldDisplay) {
         return null;
     }
 
