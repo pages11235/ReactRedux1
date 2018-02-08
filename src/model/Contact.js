@@ -35,8 +35,8 @@ export class Contact {
                     this[key] = null;
                 }
 
-                // dummy return to fulfill contract of map()
-                return null;
+                // Make chainable
+                return this;
             });
     }
 }
