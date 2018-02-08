@@ -4,14 +4,19 @@ import {connect} from 'react-redux';
 
 import ContactMaintenance from './ContactMaintenance';
 import {Contact} from '../../model/Contact';
-import {addContact, updateContact} from '../../model/modelApi';
+import {retrieveContact, addContact, updateContact} from '../../model/modelApi';
 
 class ContactMaintenanceContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        const contactId = parseInt(props.match.params.id, 10);
+
         this.state = {
-            contact: this.props.contact,
+            contactId: contactId,
+            contact: contactId === 0
+                ? new Contact()
+                : null,
             dispatch: this.props.dispatch
         };
 
@@ -30,6 +35,16 @@ class ContactMaintenanceContainer extends React.Component {
     }
 
     render() {
+        if (!this.state.contact) {
+            retrieveContact(this.state.contactId, contact => {
+                this.setState(() => {
+                    return {contact: contact};
+                })
+            }, error => {
+                alert(error);
+            });
+        }
+
         return (<ContactMaintenance
             contact={this.state.contact}
             onSaveClickHandler={this.onSaveClickHandlerBound}
@@ -97,14 +112,7 @@ ContactMaintenanceContainer.propTypes = {
 const decoratedContactMaintenanceContainer = connect(mapStateToProps, wrapActionCreatorsToProps)(ContactMaintenanceContainer);
 
 function mapStateToProps(reduxState, ownProps) {
-    const contactId = parseInt(ownProps.match.params.id, 10);
-
-    let contact = new Contact();
-    if (contactId !== 0) {
-        // TODO: retrieve contact from model
-    }
-
-    return {contact};
+    // nothing to map
 }
 
 function wrapActionCreatorsToProps(dispatch) {
