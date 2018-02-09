@@ -43,6 +43,7 @@ ContactListContainer.propTypes = {
 const decoratedContactListContainer = connect(mapReduxStateToProps, mapActionCreatorsToProps)(ContactListContainer);
 
 function mapReduxStateToProps(reduxState, ownProps) {
+    console.log("Map Redux to Props has contactList: " + !(!reduxState.contactsState.contactList));
     return {"contactList": reduxState.contactsState.contactList};
 }
 
