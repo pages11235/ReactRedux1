@@ -33,7 +33,7 @@ class ContactListContainer extends React.Component {
         return (<ContactList contactList={this.state.contactList}/>);
     }
 }
-
+//TWS - Testing.
 ContactListContainer.propTypes = {
     // injected by connect() below
     contactList: PropTypes.array.isRequired,
