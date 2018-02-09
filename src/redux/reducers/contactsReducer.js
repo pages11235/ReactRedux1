@@ -3,7 +3,6 @@ import * as contactActionTypes from '../actions/contactActionTypes';
 export default function contactsReducer(previousContactsState, action) {
     // Happens during intitialization
     if (previousContactsState === undefined) {
-        console.log("Initial dispatch...");
         const contactsState = new ContactsState(false, true, []);
 
         return contactsState;
@@ -13,7 +12,6 @@ export default function contactsReducer(previousContactsState, action) {
         case contactActionTypes.UPDATE_CONTACT_LIST:
             {
                 const update = action.contactListUpdate;
-                console.log("Dispatch: " + update.refreshing + ", " + update.dirty + ", " + update.contactList + ".");
                 const contactsState = new ContactsState(update.refreshing, update.dirty, update.contactList);
 
                 return contactsState;

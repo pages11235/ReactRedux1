@@ -7,7 +7,7 @@ function ContactList(props) {
     return (
         <div>
             <NavLink to="/contact/id/0" component="Contact" className="button">Add Contact</NavLink>
-            <Waiting listRefreshing={props.listRefreshing}/>
+            <Waiting shouldDisplay={props.listRefreshing}/>
             <br/><br/>
             <table className="table">
                 <thead>

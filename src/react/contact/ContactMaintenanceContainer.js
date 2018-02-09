@@ -105,14 +105,14 @@ class ContactMaintenanceContainer extends React.Component {
 
 ContactMaintenanceContainer.propTypes = {
     // injected by connect() below
-    contact: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired
 };
 
 const decoratedContactMaintenanceContainer = connect(mapStateToProps, wrapActionCreatorsToProps)(ContactMaintenanceContainer);
 
 function mapStateToProps(reduxState, ownProps) {
-    // nothing to map
+    return {};
 }
 
 function wrapActionCreatorsToProps(dispatch) {
