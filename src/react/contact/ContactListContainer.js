@@ -10,22 +10,27 @@ class ContactListContainer extends React.Component {
         super(props);
 
         this.state = {
+            contactList: null,
             dispatch: props.dispatch
         };
     }
 
-    render() {
-        if (this.props.listDirty) {
-            setTimeout(() => {
-                updateContactList(this.state.dispatch, function () {}, function (error) {
-                    alert(error)
-                });
-            }, 0);
-        }
+    componentDidMount() {
+        setTimeout(() => {
+            updateContactList(this.state.dispatch, function () {}, function (error) {
+                alert(error)
+            });
+        }, 0);
+    }
 
-        return (<ContactList
-            contactList={this.props.contactList}
-            listRefreshing={this.props.listRefreshing}/>);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.contactList) {
+            this.setState({contactList: nextProps.contactList});
+        }
+    }
+
+    render() {
+        return (<ContactList contactList={this.state.contactList}/>);
     }
 }
 
@@ -38,7 +43,8 @@ ContactListContainer.propTypes = {
 const decoratedContactListContainer = connect(mapReduxStateToProps, mapActionCreatorsToProps)(ContactListContainer);
 
 function mapReduxStateToProps(reduxState, ownProps) {
-    return {"contactList": reduxState.contactsState.contactList, "listRefreshing": reduxState.contactsState.refreshing, "listDirty": reduxState.contactsState.dirty};
+    console.log("Map Redux to Props has contactList: " + !(!reduxState.contactsState.contactList));
+    return {"contactList": reduxState.contactsState.contactList};
 }
 
 function mapActionCreatorsToProps(dispatch) {
