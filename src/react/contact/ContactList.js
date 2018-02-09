@@ -4,10 +4,12 @@ import {NavLink} from 'react-router-dom';
 import Waiting from '../common/Waiting';
 
 function ContactList(props) {
+    const listRefreshing = props.contactList === null;
+    
     return (
         <div>
             <NavLink to="/contact/id/0" component="Contact" className="button">Add Contact</NavLink>
-            <Waiting shouldDisplay={props.listRefreshing}/>
+            <Waiting shouldDisplay={listRefreshing}/>
             <br/><br/>
             <table className="table">
                 <thead>
@@ -18,22 +20,22 @@ function ContactList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props
-                        .contactList
-                        .map(contact => {
-                            return (
-                                <tr key={contact.contactId}>
-                                    <td>
-                                        <NavLink
-                                            to={`/contact/id/${contact.contactId}`}
-                                            component="Contact"
-                                            className="buttonSmall">&nbsp;</NavLink>
-                                    </td>
-                                    <td>{contact.firstName}</td>
-                                    <td>{contact.lastName}</td>
-                                </tr>
-                            );
-                        })
+                    {(props.contactList !== null
+                        ? props.contactList
+                        : []).map(contact => {
+                        return (
+                            <tr key={contact.contactId}>
+                                <td>
+                                    <NavLink
+                                        to={`/contact/id/${contact.contactId}`}
+                                        component="Contact"
+                                        className="buttonSmall">&nbsp;</NavLink>
+                                </td>
+                                <td>{contact.firstName}</td>
+                                <td>{contact.lastName}</td>
+                            </tr>
+                        );
+                    })
 }
                 </tbody>
             </table>

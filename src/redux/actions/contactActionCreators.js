@@ -5,9 +5,7 @@ export function updateContactListActionCreator(contactListUpdate) {
 };
 
 export class ContactListUpdate {
-    constructor(refreshing, dirty, contactList) {
-        this.refreshing = refreshing;
-        this.dirty = dirty;
+    constructor(contactList) {
         this.contactList = contactList;
     }
 }

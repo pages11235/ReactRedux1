@@ -12,7 +12,7 @@ export default function contactsReducer(previousContactsState, action) {
         case contactActionTypes.UPDATE_CONTACT_LIST:
             {
                 const update = action.contactListUpdate;
-                const contactsState = new ContactsState(update.refreshing, update.dirty, update.contactList);
+                const contactsState = new ContactsState(update.contactList);
 
                 return contactsState;
             }
@@ -22,9 +22,7 @@ export default function contactsReducer(previousContactsState, action) {
 }
 
 export class ContactsState {
-    constructor(refreshing, dirty, contactList) {
-        this.refreshing = refreshing;
-        this.dirty = dirty;
+    constructor(contactList) {
         this.contactList = contactList;
     }
 }

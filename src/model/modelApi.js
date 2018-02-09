@@ -5,8 +5,6 @@ import {Contact} from './Contact';
 let modelContactList = [];
 
 export function updateContactList(dispatch, successCB, failCB) {
-    dispatch(updateContactListActionCreator(new ContactListUpdate(true, false, [])));
-
     const promise = new Promise((resolveCB, rejectCB) => {
         setTimeout(() => {
             const nextContactList = modelContactList.map(contact => {
@@ -18,7 +16,7 @@ export function updateContactList(dispatch, successCB, failCB) {
         }, 2000);
     });
     promise.then((nextContactList) => {
-        dispatch(updateContactListActionCreator(new ContactListUpdate(false, false, nextContactList)));
+        dispatch(updateContactListActionCreator(new ContactListUpdate(nextContactList)));
         successCB();
     }, (error) => {
         failCB(error);
@@ -46,7 +44,6 @@ export function addContact(addedContact, dispatch, successCB, failCB) {
             addedContact.contactId = maxContactId + 1;
             modelContactList.push(addedContact);
             modelContactList.sort(contactCompare);
-            dispatch(updateContactListActionCreator(new ContactListUpdate(false, true, [])));
             resolveCB("Contact added.");
         }, 2000);
     });
@@ -63,7 +60,6 @@ export function updateContact(updatedContact, dispatch, successCB, failCB) {
             modelContactList = modelContactList.filter(listContact => listContact.contactId !== updatedContact.contactId);
             modelContactList.push(updatedContact);
             modelContactList.sort(contactCompare);
-            dispatch(updateContactListActionCreator(new ContactListUpdate(false, true, [])));
             resolveCB("Contact updated.");
         }, 2000);
     });
