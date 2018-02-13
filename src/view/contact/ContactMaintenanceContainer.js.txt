@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import ContactMaintenance from './ContactMaintenance';
-import {Contact} from '../../model/Contact';
-import {retrieveContact, addContact, updateContact} from '../../model/modelApi';
+import {Contact} from '../../model/value-objects/Contact';
+import {retrieveContact, addContact, updateContact} from '../../controller/controller';
 
 class ContactMaintenanceContainer extends React.Component {
     constructor(props, context) {

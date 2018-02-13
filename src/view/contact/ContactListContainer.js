@@ -2,25 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {updateContactList} from '../../model/modelApi';
+import contactListState from '../../model/reducers/contactListReducer';
+import * as Status from '../../model/status';
+
 import ContactList from './ContactList';
 
 class ContactListContainer extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            contactList: null,
-            dispatch: props.dispatch
-        };
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            updateContactList(this.state.dispatch, function () {}, function (error) {
-                alert(error)
-            });
-        }, 0);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -30,25 +19,33 @@ class ContactListContainer extends React.Component {
     }
 
     render() {
-        return (<ContactList contactList={this.state.contactList}/>);
+        return (<ContactList contactList={this.props.contactListState.contactList} isWaiting={this.props.contactListState.status !== Status.FRESH}/>);
+    }
+
+    componentDidMount() {
+        if (this.contactListState.status === Status.STALE) {
+            // Request a new list
+        }
+    }
+
+    componentWillUnmount() {
+        // Mark list as stale
     }
 }
 
 ContactListContainer.propTypes = {
     // injected by connect() below
-    contactList: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    contactListState: PropTypes.object.isRequired
 };
 
 const decoratedContactListContainer = connect(mapReduxStateToProps, mapActionCreatorsToProps)(ContactListContainer);
 
 function mapReduxStateToProps(reduxState, ownProps) {
-    console.log("Map Redux to Props has contactList: " + !(!reduxState.contactsState.contactList));
-    return {"contactList": reduxState.contactsState.contactList};
+    return {"contactListState": reduxState.contactListState};
 }
 
 function mapActionCreatorsToProps(dispatch) {
-    return {actions: {}, dispatch};
+    return {};
 }
 
 export default decoratedContactListContainer;

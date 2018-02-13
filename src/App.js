@@ -1,23 +1,20 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
-import configureStore from './redux/store/configureStore';
+import {browserHistory, reduxStore} from './controller/controller';
 
 import './App.css';
 
-import Header from './react/common/Header';
-import HomePage from './react/home/HomePage';
-import AboutPage from './react/about/AboutPage';
-import ContactPage from './react/contact/ContactPage';
+import Header from './view/common/Header';
+import HomePage from './view/home/HomePage';
+import AboutPage from './view/about/AboutPage';
+import ContactPage from './view/contact/ContactPage';
 
-function App(props) {
-  const store = configureStore();
-  // initialize contact list if persisted
-  
+export default function render(props) {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
+    <Provider store={reduxStore}>
+      <Router history={browserHistory}>
         <div>
           <Header/>
           <main>
@@ -26,9 +23,7 @@ function App(props) {
             <Route path="/contact" component={ContactPage}/>
           </main>
         </div>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 }
-
-export default App;
