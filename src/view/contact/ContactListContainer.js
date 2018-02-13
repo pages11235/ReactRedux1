@@ -2,34 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import contactListState from '../../model/reducers/contactListReducer';
 import * as Status from '../../model/status';
+import {refreshContactList, markContactListStale} from '../../controller/controller';
 
 import ContactList from './ContactList';
 
 class ContactListContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.contactList) {
-            this.setState({contactList: nextProps.contactList});
-        }
-    }
-
     render() {
         return (<ContactList contactList={this.props.contactListState.contactList} isWaiting={this.props.contactListState.status !== Status.FRESH}/>);
     }
 
     componentDidMount() {
-        if (this.contactListState.status === Status.STALE) {
-            // Request a new list
+        if (this.props.contactListState.status === Status.STALE) {
+            refreshContactList();
         }
     }
 
     componentWillUnmount() {
-        // Mark list as stale
+        markContactListStale();
     }
 }
 

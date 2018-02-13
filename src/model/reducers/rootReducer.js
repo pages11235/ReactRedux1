@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 
-import contactListReducer from './contactListReducer';
-import workingContactReducer from './workingContactReducer';
+import contactListState from './contactListReducer';
+import workingContactState from './workingContactReducer';
 
 const rootReducer = combineReducers({
   // list reducers here
-  contactListReducer,
-  workingContactReducer
+  contactListState,
+  workingContactState
 });
 
 export default rootReducer;

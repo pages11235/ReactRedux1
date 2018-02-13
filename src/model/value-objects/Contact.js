@@ -32,11 +32,12 @@ export class Contact {
                 if (dto[key]) {
                     this[key] = dto[key];
                 } else {
-                    this[key] = null;
+                    // default values should be set in constructor
                 }
-
-                // Make chainable
-                return this;
+                return null;
             });
+
+        // Make chainable
+        return this;
     }
 }

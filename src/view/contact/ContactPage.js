@@ -2,7 +2,7 @@ import React from 'react';
 import {Router, Route} from 'react-router-dom';
 import {browserHistory} from '../../controller/controller';
 import ContactListContainer from './ContactListContainer';
-//import ContactMaintenanceContainer from './ContactMaintenanceContainer';
+import ContactMaintenanceContainer from './ContactMaintenanceContainer';
 
 function ContactPage(props) {
     return (
@@ -11,6 +11,7 @@ function ContactPage(props) {
                 <h2>Your Contacts</h2>
                 <div>
                     <Route path="/contact/list" component={ContactListContainer}/>
+                    <Route path="/contact/id/:id" component={ContactMaintenanceContainer}/>
                 </div>
             </div>
         </Router>
@@ -18,4 +19,3 @@ function ContactPage(props) {
 };
 
 export default ContactPage;
-//                     <Route path="/contact/id/:id" component={ContactMaintenanceContainer}/>
